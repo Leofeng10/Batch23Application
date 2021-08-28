@@ -66,13 +66,6 @@ public class MonthFragment extends Fragment {
                 dayModel.setYear(localDate.getYear());
                 if (alleventlist.containsKey(localDate)) {
                     dayModel.setEventInfo(alleventlist.get(localDate));
-//                    if (alleventlist.get(localDate).isallday){
-//                        LocalDate localDate1=new LocalDate(alleventlist.get(localDate).starttime, DateTimeZone.forID(alleventlist.get(localDate).timezone));
-//                        LocalDate localDate2=new LocalDate(alleventlist.get(localDate).endtime, DateTimeZone.forID(alleventlist.get(localDate).timezone));
-//                       int day = Days.daysBetween(localDate1,localDate2).getDays();
-//                       dayModel.setNoofdayevent(day);
-//                       Log.e("noofday",dayModel.getEvents()[0]+","+day);
-//                    }
                 }
 
                 dayModel.setIsenable(false);
