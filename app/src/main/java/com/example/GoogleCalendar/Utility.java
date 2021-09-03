@@ -67,11 +67,8 @@ public class Utility {
 
 
         // fetching calendars id
-        String syncacc = null;
-        while (cursor.moveToNext()) {
-            Log.d("test", "3456345634563456345634");
 
-            syncacc = cursor.getString(6);
+        while (cursor.moveToNext()) {
 
             if (true) {
 
@@ -117,6 +114,7 @@ public class Utility {
                 } else {
                     //there is an event that start at the same time
                     EventInfo eventInfo = localDateHashMap.get(localDate);
+                    Log.d("localDate---", localDate.toString());
                     EventInfo prev = eventInfo;
 
                     //eventinfo is a linked list, iterate to the end of the list and append a new event
@@ -197,19 +195,29 @@ public class Utility {
 
 
         }
-
-
-//        LocalDate localDate = LocalDate.now();
+//
+//
+//        LocalDate localDate = LocalDate.now().minusDays(21);
+//        Log.d("my create date", localDate.toString());
+//        EventInfo eventInfo = localDateHashMap.get(localDate);
+//
+//        EventInfo prev = eventInfo;
+//
+//        //eventinfo is a linked list, iterate to the end of the list and append a new event
+//        while (prev.nextnode!=null)prev=prev.nextnode;
+//
 //        EventInfo e = new EventInfo();
 //        e.accountname = "fengzhunyi@gmail.com";
 //        e.id = 49;
 //        e.isallday = false;
-//        e.starttime = cursor.getLong(3);
-//        e.endtime = cursor.getLong(4);
+//        e.starttime = 1628879400000L;
+//        e.endtime = 1628889000000L;
 //        e.title = "leo create";
 //        e.timezone = "Asia/Shanghai";
+//        e.eventtitles = new String[] {"lea test"};
 //        e.eventcolor = Color.parseColor("#009688");
 //        localDateHashMap.put(localDate, e);
+//        prev.nextnode = e;
 //        Log.d("time", localDate.toString());
 
         return localDateHashMap;

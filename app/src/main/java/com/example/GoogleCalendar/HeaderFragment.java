@@ -1,4 +1,4 @@
-package com.example.GoogleCalendar.navigation.Fragment;
+package com.example.GoogleCalendar;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,10 +6,9 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.GoogleCalendar.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class HeaderFragment extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
 

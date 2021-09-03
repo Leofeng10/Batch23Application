@@ -1,4 +1,4 @@
-package com.example.GoogleCalendar.navigation.Fragment;
+package com.example.GoogleCalendar;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,14 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.GoogleCalendar.R;
 
+public class Today extends Fragment {
 
-public class Month extends Fragment {
-
-    public static Month getInstance(){
-        Month month = new Month();
-        return month;
+    public static Today getInstance(){
+        Today today = new Today();
+        return today;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class Month extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.month, container, false);
+        View view = inflater.inflate(R.layout.today, container, false);
         return view;
     }
 

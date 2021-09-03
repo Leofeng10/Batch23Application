@@ -6,11 +6,6 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.GoogleCalendar.R;
-import com.example.GoogleCalendar.navigation.Fragment.Month;
-import com.example.GoogleCalendar.navigation.Fragment.Today;
-import com.example.GoogleCalendar.navigation.Fragment.ViewPagerAdapter;
-import com.example.GoogleCalendar.navigation.Fragment.Week;
 import com.google.android.material.tabs.TabLayout;
 
 public class NavigationActivity extends AppCompatActivity {

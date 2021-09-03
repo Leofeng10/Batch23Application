@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonLeft"
+                android:id="@+id/buttonWeekLeft"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -28,19 +28,19 @@
                 app:backgroundTint="@color/black" />
 
             <TextView
-                android:id="@+id/week"
+                android:id="@+id/weekText"
                 android:layout_width="220dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bg_rounded"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="Select week"
+                android:text="Select Week"
                 android:textColor="#00BFFF"
                 android:textSize="24sp"
                 android:layout_marginTop="20dp"/>
             <Button
-                android:id="@+id/buttonRight"
+                android:id="@+id/buttonWeekRight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,4 +1,4 @@
-package com.example.GoogleCalendar.navigation.Fragment;
+package com.example.GoogleCalendar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
