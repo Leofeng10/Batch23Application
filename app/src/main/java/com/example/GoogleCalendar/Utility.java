@@ -26,7 +26,9 @@ import java.util.List;
 
 import androidx.core.app.ActivityCompat;
 
-
+/**
+ * this class is to read event
+ */
 public class Utility {
 
 
@@ -44,8 +46,19 @@ public class Utility {
 
         Cursor cursor = context.getContentResolver().query(
                 CalendarContract.Events.CONTENT_URI,
-                new String[]{"_id", "title", "description",
-                        "dtstart", "dtend", "eventLocation", "calendar_displayName", CalendarContract.Events.ALL_DAY, CalendarContract.Events.EVENT_COLOR, CalendarContract.Events.CALENDAR_COLOR, CalendarContract.Events.EVENT_TIMEZONE, CalendarContract.Events.DURATION}, null,
+                new String[]{"_id", //0
+                        "title", //1
+                        "description",//2
+                        "dtstart", //3
+                        "dtend", //4
+                        "eventLocation", //5
+                        "calendar_displayName", //6
+                        CalendarContract.Events.ALL_DAY, //7
+                        CalendarContract.Events.EVENT_COLOR, //8
+                        CalendarContract.Events.CALENDAR_COLOR, //9
+                        CalendarContract.Events.EVENT_TIMEZONE, //10
+                        CalendarContract.Events.DURATION //11
+                }, null,
                 null, null);
 
 
@@ -64,6 +77,7 @@ public class Utility {
                 LocalDate localDate = getDate(Long.parseLong(cursor.getString(3)));
 
                 if (!localDateHashMap.containsKey(localDate)) {
+                    //do not have an event that starts at the same time
                     EventInfo eventInfo = new EventInfo();
                     eventInfo.id = cursor.getInt(0);
                     eventInfo.starttime = cursor.getLong(3);
@@ -72,16 +86,12 @@ public class Utility {
                     eventInfo.accountname=cursor.getString(6);
                     eventInfo.timezone = cursor.getString(10);
                     eventInfo.eventtitles = new String[]{cursor.getString(1)};
-                    Log.d("accname-1", eventInfo.accountname + " " + eventInfo.starttime + " " + eventInfo.endtime);
-
-                    for (String s : eventInfo.eventtitles) {
-                        Log.d("event", s);
-
-                    }
                     eventInfo.isallday = cursor.getInt(7) == 1 ? true : false;
                     eventInfo.title = cursor.getString(1);
                     eventInfo.eventcolor = cursor.getInt(8)==0? Color.parseColor("#009688"):cursor.getInt(8);
+
                     long difference=eventInfo.endtime-eventInfo.starttime;
+
                     if (difference>86400000){
                         if (cursor.getInt(7)==0){
                             eventInfo.endtime=eventInfo.endtime+86400000l;
@@ -93,29 +103,24 @@ public class Utility {
                         int day = Days.daysBetween(localDate1,localDate2).getDays();
                         eventInfo.noofdayevent=day;
                         eventInfo.isallday=true;
+                    } else if (difference<86400000) {
+                        eventInfo.noofdayevent=0;
+                    } else {
+                        eventInfo.noofdayevent=1;
                     }
-                    else if (difference<86400000)eventInfo.noofdayevent=0;
-                    else eventInfo.noofdayevent=1;
-
-
 
                     localDateHashMap.put(localDate, eventInfo);
 
 
                 } else {
+                    //there is an event that start at the same time
                     EventInfo eventInfo = localDateHashMap.get(localDate);
                     EventInfo prev = eventInfo;
+
+                    //eventinfo is a linked list, iterate to the end of the list and append a new event
                     while (prev.nextnode!=null)prev=prev.nextnode;
 
                     String[] s = eventInfo.eventtitles;
-
-
-                    Log.d("accname", eventInfo.accountname + " " + eventInfo.starttime + " " + eventInfo.endtime);
-
-                    for (String s1 : eventInfo.eventtitles) {
-                        Log.d("event", s1);
-
-                    }
 
                     boolean isneed = true;
                     for (int i = 0; i < s.length; i++) {
@@ -136,17 +141,16 @@ public class Utility {
                         nextnode.id = cursor.getInt(0);
                         nextnode.starttime =cursor.getLong(3);
                         nextnode.endtime = cursor.getLong(4);
-                        Log.d("start", nextnode.starttime + " " + nextnode.endtime);
-                        if (cursor.getString(11)!=null) nextnode.endtime = nextnode.starttime+RFC2445ToMilliseconds(cursor.getString(11));
+                        if (cursor.getString(11)!=null) nextnode.endtime = nextnode.starttime + RFC2445ToMilliseconds(cursor.getString(11));
 
                         nextnode.isallday = cursor.getInt(7) == 1 ? true : false;
                         nextnode.timezone = cursor.getString(10);
                         nextnode.title = cursor.getString(1);
                         nextnode.accountname=cursor.getString(6);
                         nextnode.eventcolor = cursor.getInt(8)==0? Color.parseColor("#009688"):cursor.getInt(8);
-                        long difference=nextnode.endtime-nextnode.starttime;
+                        long difference = nextnode.endtime-nextnode.starttime;
 
-                        if (nextnode.endtime-nextnode.starttime>86400000){
+                        if (difference > 86400000){
                             if (cursor.getInt(7)==0){
                                 nextnode.endtime=nextnode.endtime+86400000l;
                             }
@@ -164,9 +168,6 @@ public class Utility {
                         } else {
                             eventInfo.noofdayevent=1;
                         }
-                        Log.d("eventinfo", nextnode.toString());
-
-
 
                         //insert event manualy
                         EventInfo nextnextnode = new EventInfo();
@@ -196,6 +197,12 @@ public class Utility {
 
         return localDateHashMap;
     }
+
+    /**
+     * parse date to milliseconds
+     * @param str
+     * @return
+     */
     public static long RFC2445ToMilliseconds(String str)
     {
 
@@ -216,14 +223,13 @@ public class Utility {
 
         c = str.charAt(0);
 
-        if (c == '-')
-        {
+        if (c == '-') {
             sign = -1;
+            index++;
+        } else if (c == '+') {
             index++;
         }
 
-        else if (c == '+')
-            index++;
 
         if (len < index)
             return 0;
@@ -243,46 +249,26 @@ public class Utility {
         {
             c = str.charAt(index);
 
-            if (c >= '0' && c <= '9')
-            {
+            if (c >= '0' && c <= '9') {
                 n *= 10;
                 n += ((int)(c-'0'));
-            }
-
-            else if (c == 'W')
-            {
+            } else if (c == 'W') {
                 weeks = n;
                 n = 0;
-            }
-
-            else if (c == 'H')
-            {
+            } else if (c == 'H') {
                 hours = n;
                 n = 0;
-            }
-
-            else if (c == 'M')
-            {
+            } else if (c == 'M') {
                 minutes = n;
                 n = 0;
-            }
-
-            else if (c == 'S')
-            {
+            } else if (c == 'S') {
                 seconds = n;
                 n = 0;
-            }
-
-            else if (c == 'D')
-            {
+            } else if (c == 'D') {
                 days = n;
                 n = 0;
-            }
-
-            else if (c == 'T')
-            {
-            }
-            else
+            } else if (c == 'T') {
+            } else
                 throw new IllegalArgumentException ("Duration.parse(str='" + str + "') unexpected char '" + c + "' at index=" + index);
         }
 
@@ -295,41 +281,7 @@ public class Utility {
 
         return result;
     }
-    public static void getDataFromCalendarTable(Context context) {
-        Cursor cur = null;
-        ContentResolver cr = context.getContentResolver();
 
-        String[] mProjection =
-                {
-                        CalendarContract.Calendars.ALLOWED_ATTENDEE_TYPES,
-                        CalendarContract.Calendars.ACCOUNT_NAME,
-                        CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-                        CalendarContract.Calendars.CALENDAR_LOCATION,
-                        CalendarContract.Calendars.CALENDAR_TIME_ZONE,
-                        CalendarContract.Calendars._ID
-                };
-
-        Uri uri = CalendarContract.Calendars.CONTENT_URI;
-        String selection = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
-                + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
-        String[] selectionArgs = new String[]{"jigneshkhunt13@gmail.com", "jigneshkhunt13@gmail.com",
-                "jigneshkhunt13@gmail.com"};
-
-
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        cur = cr.query(uri, mProjection, null, null, null);
-
-        while (cur.moveToNext()) {
-            String displayName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME));
-            String accountName = cur.getString(cur.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME));
-
-
-        }
-
-    }
 
     public static LocalDate getDate(long milliSeconds) {
         Instant instantFromEpochMilli

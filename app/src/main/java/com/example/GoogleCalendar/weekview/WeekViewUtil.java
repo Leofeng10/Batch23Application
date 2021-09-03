@@ -2,18 +2,8 @@ package com.example.GoogleCalendar.weekview;
 
 import java.util.Calendar;
 
-/**
- * Created by jesse on 6/02/2016.
- * and modify some code by jignesh khunt for https://github.com/jignesh13/googlecalendar
- */
 public class WeekViewUtil {
 
-
-    /////////////////////////////////////////////////////////////////
-    //
-    //      Helper methods.
-    //
-    /////////////////////////////////////////////////////////////////
 
     /**
      * Checks if two times are on the same day.

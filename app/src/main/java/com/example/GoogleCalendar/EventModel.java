@@ -7,6 +7,9 @@ import org.joda.time.LocalDate;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 
+/**
+ * class for event
+ */
 public class EventModel implements Comparable<EventModel> {
     private String eventname;
     private LocalDate localDate;

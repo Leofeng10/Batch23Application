@@ -27,6 +27,9 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.AutoScrollHelper;
 
+/**
+ * set properties for calendar view
+ */
 public class JCalendarMonthView extends View  {
     float eachcellheight, eachcellwidth;
     long lastsec;
@@ -53,7 +56,7 @@ public class JCalendarMonthView extends View  {
         this(context, attrs, 0);
     }
 
-    public void setDayModels(ArrayList<DayModel> dayModels,int currentdaynameindex) {
+    public void setDayModels(ArrayList<DayModel> dayModels, int currentdaynameindex) {
         this.dayModels = dayModels;
         this.currentdaynameindex = currentdaynameindex;
         invalidate();
@@ -75,37 +78,23 @@ public class JCalendarMonthView extends View  {
             daytextsize = a.getDimensionPixelSize(R.styleable.JCalendarMonthView_daytextsize, 12);
             datetextsize = a.getDimensionPixelSize(R.styleable.JCalendarMonthView_datetextsize, 14);
             eventtextsize = a.getDimensionPixelSize(R.styleable.JCalendarMonthView_eventtextsize, 11);
-
             daytextcolor = a.getColor(R.styleable.JCalendarMonthView_daytextcolor, Color.GRAY);
             datetextcolor = a.getColor(R.styleable.JCalendarMonthView_datetextcolor, Color.GRAY);
-
-
             datemargintop = a.getDimensionPixelSize(R.styleable.JCalendarMonthView_datemargintop, 25);
             linecolor = a.getColor(R.styleable.JCalendarMonthView_linecolor, Color.GRAY);
             linewidth = a.getDimensionPixelSize(R.styleable.JCalendarMonthView_linewidth, 2);
-
             mDetector = new GestureDetector(context, new MyGestureListener());
-
-
-
-
-
-
         } finally {
             a.recycle();
         }
 
     }
-    // In the SimpleOnGestureListener subclass you should override
-    // onDown and any other gesture that you want to detect.
+
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
         public boolean onDown(MotionEvent event) {
             Log.d("TAG","onDown: ");
-
-            // don't return false here or else none of the other
-            // gestures will work
             return true;
         }
 
@@ -127,15 +116,13 @@ public class JCalendarMonthView extends View  {
         }
 
         @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2,
-                                float distanceX, float distanceY) {
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             Log.i("TAG", "onScroll: ");
             return true;
         }
 
         @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2,
-                               float velocityX, float velocityY) {
+        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
             Log.d("TAG", "onFling: ");
             return true;
         }
@@ -152,10 +139,7 @@ public class JCalendarMonthView extends View  {
         final int ytouch = (int) motionEvent.getY();
         if (ytouch < dayHeight) return true;
 
-
-
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-
             isup = false;
             downx = xtouch;
             downy = ytouch;
@@ -163,76 +147,16 @@ public class JCalendarMonthView extends View  {
             return true;
 
         } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-
-
-
-
-                        if (xtouch == downx && ytouch == downy && System.currentTimeMillis() - lastsec >= 80) {
-                            int column = (int) (xtouch / eachcellwidth);
-                            int row = (int) ((ytouch - dayHeight) / eachcellheight);
-                            int cell = (row * 7) + column;
-                            if (selectedcell != cell) {
-                                selectedcell = cell;
-                                int reachxend = (int) (eachcellwidth * (column + 1));
-                                int reachxstart = (int) (eachcellwidth * (column));
-                                int reachyend = (int) (eachcellheight * (row + 1) + dayHeight);
-                                int reachystart = (int) (eachcellheight * (row) + dayHeight);
-
-                                final int left = (int) (xtouch - reachxstart);
-                                final int right = (int) (reachxend - xtouch);
-                                final int top = (int) (ytouch - reachystart);
-                                final int bottom = (int) (reachyend - ytouch);
-                                ValueAnimator widthAnimator = ValueAnimator.ofInt(0, 100);
-                                widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                    @Override
-                                    public void onAnimationUpdate(ValueAnimator animation) {
-
-                                        int progress = (int) animation.getAnimatedValue();
-                                        int start = xtouch - ((left * progress) / 100);
-                                        int endside = xtouch + ((right * progress) / 100);
-                                        int topside = ytouch - ((top * progress) / 100);
-                                        int bottomside = ytouch + ((bottom * progress) / 100);
-                                        selectedrect = new Rect(start, topside, endside, bottomside);
-
-                                        invalidate();
-                                    }
-                                });
-                                widthAnimator.addListener(new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        if (isup) {
-                                            selectedrect = null;
-                                            selectedcell = -1;
-                                            downx = -1;
-                                            downy = -1;
-                                            invalidate();
-                                        }
-                                    }
-                                });
-                                widthAnimator.setDuration(220);
-                                widthAnimator.start();
-                            }
-
-                        } else {
-                            selectedrect = null;
-                            selectedcell = -1;
-                            invalidate();
-                        }
-                         return super.onTouchEvent(motionEvent);
-        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-
-
-            if (xtouch == downx && ytouch == downy) {
+            if (xtouch == downx && ytouch == downy && System.currentTimeMillis() - lastsec >= 80) {
                 int column = (int) (xtouch / eachcellwidth);
                 int row = (int) ((ytouch - dayHeight) / eachcellheight);
                 int cell = (row * 7) + column;
-
+                if (selectedcell != cell) {
                     selectedcell = cell;
                     int reachxend = (int) (eachcellwidth * (column + 1));
                     int reachxstart = (int) (eachcellwidth * (column));
                     int reachyend = (int) (eachcellheight * (row + 1) + dayHeight);
                     int reachystart = (int) (eachcellheight * (row) + dayHeight);
-
 
                     final int left = (int) (xtouch - reachxstart);
                     final int right = (int) (reachxend - xtouch);
@@ -251,25 +175,78 @@ public class JCalendarMonthView extends View  {
                             selectedrect = new Rect(start, topside, endside, bottomside);
 
                             invalidate();
-                            if (progress==100){
-                                MainActivity mainActivity = (MainActivity) mContext;
-                                if (mainActivity != null&&selectedcell!=-1) {
-                                    DayModel dayModel = dayModels.get(selectedcell);
-                                    mainActivity.selectdateFromMonthPager(dayModel.getYear(), dayModel.getMonth(), dayModel.getDay());
-                                }
-                                selectedrect = null;
-                                selectedcell = -1;
-                                downx = -1;
-                                downy = -1;
-                                invalidate();
-                            }
                         }
                     });
-
-                    widthAnimator.setDuration(150);
+                    widthAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                        if (isup) {
+                            selectedrect = null;
+                            selectedcell = -1;
+                            downx = -1;
+                            downy = -1;
+                            invalidate();
+                        }
+                        }
+                    });
+                    widthAnimator.setDuration(220);
                     widthAnimator.start();
+                }
+
+            } else {
+                selectedrect = null;
+                selectedcell = -1;
+                invalidate();
+            }
+
+            return super.onTouchEvent(motionEvent);
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            if (xtouch == downx && ytouch == downy) {
+                int column = (int) (xtouch / eachcellwidth);
+                int row = (int) ((ytouch - dayHeight) / eachcellheight);
+                int cell = (row * 7) + column;
+
+                selectedcell = cell;
+                int reachxend = (int) (eachcellwidth * (column + 1));
+                int reachxstart = (int) (eachcellwidth * (column));
+                int reachyend = (int) (eachcellheight * (row + 1) + dayHeight);
+                int reachystart = (int) (eachcellheight * (row) + dayHeight);
 
 
+                final int left = (int) (xtouch - reachxstart);
+                final int right = (int) (reachxend - xtouch);
+                final int top = (int) (ytouch - reachystart);
+                final int bottom = (int) (reachyend - ytouch);
+                ValueAnimator widthAnimator = ValueAnimator.ofInt(0, 100);
+                widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+
+                        int progress = (int) animation.getAnimatedValue();
+                        int start = xtouch - ((left * progress) / 100);
+                        int endside = xtouch + ((right * progress) / 100);
+                        int topside = ytouch - ((top * progress) / 100);
+                        int bottomside = ytouch + ((bottom * progress) / 100);
+                        selectedrect = new Rect(start, topside, endside, bottomside);
+
+                        invalidate();
+                        if (progress==100){
+                            MainActivity mainActivity = (MainActivity) mContext;
+                            if (mainActivity != null&&selectedcell!=-1) {
+                                DayModel dayModel = dayModels.get(selectedcell);
+                                mainActivity.selectdateFromMonthPager(dayModel.getYear(), dayModel.getMonth(), dayModel.getDay());
+                            }
+                            selectedrect = null;
+                            selectedcell = -1;
+                            downx = -1;
+                            downy = -1;
+                            invalidate();
+                        }
+                    }
+                });
+
+                widthAnimator.setDuration(150);
+                widthAnimator.start();
 
             } else {
                 selectedrect = null;
@@ -282,6 +259,7 @@ public class JCalendarMonthView extends View  {
             isup = true;
             return super.onTouchEvent(motionEvent);
         }
+
         selectedrect = null;
         selectedcell = -1;
         downx = -1;
@@ -343,8 +321,6 @@ public class JCalendarMonthView extends View  {
         jtodaypaint.setStyle(Paint.Style.FILL);
         jtodaypaint.setColor(getResources().getColor(R.color.selectday));
 
-
-//        Log.e("height",rect.toString());
     }
 
     @Override

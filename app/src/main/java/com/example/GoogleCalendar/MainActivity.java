@@ -345,8 +345,7 @@ public class MainActivity extends AppCompatActivity
                     mAppBar.setElevation(0);
                     mArrowImageView.setVisibility(View.VISIBLE);
                         drawerLayout.closeDrawer(Gravity.LEFT);
-                }
-               else if (item.getItemId()==R.id.Week){
+                } else if (item.getItemId()==R.id.Week){
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
                     mNestedView.setVisibility(View.GONE);
@@ -365,29 +364,7 @@ public class MainActivity extends AppCompatActivity
                     mAppBar.setElevation(0);
                     mArrowImageView.setVisibility(View.VISIBLE);
                     drawerLayout.closeDrawer(Gravity.LEFT);
-                }
-                else if (item.getItemId()==R.id.threeday){
-                    weekviewcontainer.setVisibility(View.VISIBLE);
-                    monthviewpager.setVisibility(View.GONE);
-                    mNestedView.setVisibility(View.GONE);
-                    mWeekView.setNumberOfVisibleDays(3);
-                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setAllDayEventHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
-
-                    //set date
-                    Calendar todaydate=Calendar.getInstance();
-                    todaydate.set(Calendar.DAY_OF_MONTH,MainActivity.lastdate.getDayOfMonth());
-                    todaydate.set(Calendar.MONTH,MainActivity.lastdate.getMonthOfYear() - 1);
-                    todaydate.set(Calendar.YEAR,MainActivity.lastdate.getYear());
-                    mWeekView.goToDate(todaydate);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                    drawerLayout.closeDrawer(Gravity.LEFT);
-
-                }
-                else if (item.getItemId()==R.id.monthviewitem){
+                } else if (item.getItemId()==R.id.monthviewitem){
                     mAppBar.setExpanded(false, false);
                     mNestedView.setVisibility(View.GONE);
                     weekviewcontainer.setVisibility(View.GONE);
@@ -398,8 +375,7 @@ public class MainActivity extends AppCompatActivity
                     drawerLayout.closeDrawer(Gravity.LEFT);
                     monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), true);
 
-                }
-                else {
+                } else {
                     LocalDate localDate = new LocalDate();
                     String yearstr = MainActivity.lastdate.getYear() == localDate.getYear() ? "" : MainActivity.lastdate.getYear() + "";
                     monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);

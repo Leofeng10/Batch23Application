@@ -8,11 +8,7 @@ import java.util.List;
 
 import static com.example.GoogleCalendar.weekview.WeekViewUtil.*;
 
-/**
- * Created by Raquib-ul-Alam Kanak on 7/21/2014.
- * Website: http://april-shower.com
- * and modify some code by jignesh khunt for https://github.com/jignesh13/googlecalendar
- */
+
 public class WeekViewEvent {
     private long mId;
     private Calendar mStartTime,actualstart;

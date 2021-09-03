@@ -39,9 +39,7 @@ public class MonthFragment extends Fragment {
 
 
 
-    public MonthFragment() {
-        // Required empty public constructor
-    }
+    public MonthFragment() {}
 
     public static MonthFragment newInstance(int month, int year, int page, ArrayList<DayModel> dayModels, HashMap<LocalDate, EventInfo> alleventlist, int singleitemheight) {
         MonthFragment fragmentFirst = new MonthFragment();
@@ -118,15 +116,12 @@ public class MonthFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_month, container, false);
         JCalendarMonthView jCalendarMonthView=view.findViewById(R.id.jcalendarmonthview);
         jCalendarMonthView.setDayModels(dayModels,index);
-
         return view;
-
     }
 
 
@@ -152,6 +147,11 @@ public class MonthFragment extends Fragment {
         }
 
 
+        /**
+         * different style for different type of daymodel
+         * @param holder
+         * @param position
+         */
         @Override
         public void onBindViewHolder(MonthViewHolder holder, int position) {
 
@@ -166,7 +166,6 @@ public class MonthFragment extends Fragment {
             } else {
                 holder.textView.setBackgroundColor(Color.TRANSPARENT);
                 holder.textView.setTextColor(getResources().getColor(R.color.lightblack));
-
             }
             DayModel dayModeltemp = dayModels.get(position);
             String names[] = dayModels.get(position).getEvents();

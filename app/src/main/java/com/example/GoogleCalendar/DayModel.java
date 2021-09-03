@@ -1,5 +1,8 @@
 package com.example.GoogleCalendar;
 
+/**
+ * class for day
+ */
 public class DayModel {
     private int month;
     private int day;

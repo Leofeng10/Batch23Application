@@ -58,11 +58,7 @@ import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import static com.example.GoogleCalendar.weekview.WeekViewUtil.isSameDay;
 import static com.example.GoogleCalendar.weekview.WeekViewUtil.today;
 
-/**
- * Created by Raquib-ul-Alam Kanak on 7/21/2014.
- * Website: http://alamkanak.github.io/
- * and modify some code by jignesh khunt for https://github.com/jignesh13/googlecalendar
- */
+
 public class WeekView extends View {
 
     @Deprecated
@@ -128,7 +124,7 @@ public class WeekView extends View {
     private int mMinHourHeight = 0; //no minimum specified (will be dynamic, based on screen)
     private int mEffectiveMinHourHeight = mMinHourHeight; //compensates for the fact that you can't keep zooming out.
     private int mMaxHourHeight = 250;
-    private int mColumnGap = 10;
+    private int mColumnGap = 15;
     private int mFirstDayOfWeek = Calendar.MONDAY;
     private int mTextSize = 12;
     private int mHeaderColumnPadding = 10;
