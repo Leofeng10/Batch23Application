@@ -69,6 +69,7 @@ public class Utility {
         // fetching calendars id
         String syncacc = null;
         while (cursor.moveToNext()) {
+            Log.d("test", "3456345634563456345634");
 
             syncacc = cursor.getString(6);
 
@@ -89,6 +90,7 @@ public class Utility {
                     eventInfo.isallday = cursor.getInt(7) == 1 ? true : false;
                     eventInfo.title = cursor.getString(1);
                     eventInfo.eventcolor = cursor.getInt(8)==0? Color.parseColor("#009688"):cursor.getInt(8);
+                    Log.d("time1", eventInfo.starttime + "  " + eventInfo.endtime);
 
                     long difference=eventInfo.endtime-eventInfo.starttime;
 
@@ -141,6 +143,7 @@ public class Utility {
                         nextnode.id = cursor.getInt(0);
                         nextnode.starttime =cursor.getLong(3);
                         nextnode.endtime = cursor.getLong(4);
+                        Log.d("time2", nextnode.starttime + "  " + nextnode.endtime);
                         if (cursor.getString(11)!=null) nextnode.endtime = nextnode.starttime + RFC2445ToMilliseconds(cursor.getString(11));
 
                         nextnode.isallday = cursor.getInt(7) == 1 ? true : false;
@@ -194,6 +197,20 @@ public class Utility {
 
 
         }
+
+
+//        LocalDate localDate = LocalDate.now();
+//        EventInfo e = new EventInfo();
+//        e.accountname = "fengzhunyi@gmail.com";
+//        e.id = 49;
+//        e.isallday = false;
+//        e.starttime = cursor.getLong(3);
+//        e.endtime = cursor.getLong(4);
+//        e.title = "leo create";
+//        e.timezone = "Asia/Shanghai";
+//        e.eventcolor = Color.parseColor("#009688");
+//        localDateHashMap.put(localDate, e);
+//        Log.d("time", localDate.toString());
 
         return localDateHashMap;
     }
