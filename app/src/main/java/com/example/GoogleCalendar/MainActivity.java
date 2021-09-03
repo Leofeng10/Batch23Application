@@ -50,6 +50,7 @@ import com.example.GoogleCalendar.weekview.WeekViewEvent;
 import com.gjiazhe.scrollparallaximageview.ScrollParallaxImageView;
 import com.gjiazhe.scrollparallaximageview.parallaxstyle.VerticalMovingStyle;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     MyRecyclerView mNestedView;
     private ViewPager monthviewpager;
     private HashMap<LocalDate, EventInfo> alleventlist;
-    private DrawerLayout drawerLayout;
+//    private DrawerLayout drawerLayout;
     private int mAppBarOffset = 0;
     private boolean mAppBarIdle = true;
     private int mAppBarMaxOffset = 0;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
         if (item.getItemId()==android.R.id.home){
 
-            drawerLayout.openDrawer(Gravity.LEFT);
+//            drawerLayout.openDrawer(Gravity.LEFT);
                 return true;
         }
         if (item.getItemId() == R.id.action_favorite) {
@@ -303,8 +304,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mWeekView = (WeekView) findViewById(R.id.weekView);
         weekviewcontainer=findViewById(R.id.weekViewcontainer);
-       drawerLayout=findViewById(R.id.drawer_layout);
-        NavigationView navigationView=findViewById(R.id.navigation_view);
+//       drawerLayout=findViewById(R.id.drawer_layout);
+        BottomNavigationView navigationView=findViewById(R.id.navigation_view);
         Menu m = navigationView.getMenu();
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
@@ -322,7 +323,7 @@ public class MainActivity extends AppCompatActivity
             applyFontToMenuItem(mi);
         }
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId()==R.id.Day){
@@ -343,8 +344,8 @@ public class MainActivity extends AppCompatActivity
 
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                        drawerLayout.closeDrawer(Gravity.LEFT);
+//                    mArrowImageView.setVisibility(View.VISIBLE);
+//                        drawerLayout.closeDrawer(Gravity.LEFT);
                 } else if (item.getItemId()==R.id.Week){
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
@@ -362,8 +363,8 @@ public class MainActivity extends AppCompatActivity
                     mWeekView.goToDate(todaydate);
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                    drawerLayout.closeDrawer(Gravity.LEFT);
+//                    mArrowImageView.setVisibility(View.VISIBLE);
+//                    drawerLayout.closeDrawer(Gravity.LEFT);
                 } else if (item.getItemId()==R.id.monthviewitem){
                     mAppBar.setExpanded(false, false);
                     mNestedView.setVisibility(View.GONE);
@@ -371,14 +372,14 @@ public class MainActivity extends AppCompatActivity
                     monthviewpager.setVisibility(View.VISIBLE);
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.INVISIBLE);
-                    drawerLayout.closeDrawer(Gravity.LEFT);
+//                    mArrowImageView.setVisibility(View.INVISIBLE);
+//                    drawerLayout.closeDrawer(Gravity.LEFT);
                     monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), true);
 
                 } else {
                     LocalDate localDate = new LocalDate();
                     String yearstr = MainActivity.lastdate.getYear() == localDate.getYear() ? "" : MainActivity.lastdate.getYear() + "";
-                    monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
+//                    monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
                     calendarView.setCurrentmonth(MainActivity.lastdate);
                     calendarView.adjustheight();
                     mIsExpanded = false;
@@ -390,7 +391,7 @@ public class MainActivity extends AppCompatActivity
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(20);
                     mArrowImageView.setVisibility(View.VISIBLE);
-                    drawerLayout.closeDrawer(Gravity.LEFT);
+//                    drawerLayout.closeDrawer(Gravity.LEFT);
                 }
                 item.setChecked(true);
                 return true;
@@ -438,17 +439,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int i) {
 
-                if (monthviewpager.getVisibility() == View.GONE) return;
-                if (isAppBarClosed()) {
-                    LocalDate localDate = new LocalDate();
-                    MonthPageAdapter monthPageAdapter = (MonthPageAdapter) monthviewpager.getAdapter();
-                    MonthModel monthModel = monthPageAdapter.getMonthModels().get(i);
-                    String year = monthModel.getYear() == localDate.getYear() ? "" : monthModel.getYear() + "";
-                    monthname.setText(monthModel.getMonthnamestr() + " " + year);
-                    MainActivity.lastdate=new LocalDate(monthModel.getYear(),monthModel.getMonth(),1);
-                } else {
-                    // calendarView.setCurrentmonth(i);
-                }
+//                if (monthviewpager.getVisibility() == View.GONE) return;
+//                if (isAppBarClosed()) {
+//                    LocalDate localDate = new LocalDate();
+//                    MonthPageAdapter monthPageAdapter = (MonthPageAdapter) monthviewpager.getAdapter();
+//                    MonthModel monthModel = monthPageAdapter.getMonthModels().get(i);
+//                    String year = monthModel.getYear() == localDate.getYear() ? "" : monthModel.getYear() + "";
+//                    monthname.setText(monthModel.getMonthnamestr() + " " + year);
+//                    MainActivity.lastdate=new LocalDate(monthModel.getYear(),monthModel.getMonth(),1);
+//                } else {
+//                    // calendarView.setCurrentmonth(i);
+//                }
             }
 
             @Override
@@ -470,7 +471,7 @@ public class MainActivity extends AppCompatActivity
         EventBus.getDefault().register(this);
 
 
-        monthname = findViewById(R.id.monthname);
+//        monthname = findViewById(R.id.monthname);
         calendarView.setMonthChangeListner(new MonthChangeListner() {
             @Override
             public void onmonthChange(MonthModel monthModel) {
@@ -479,7 +480,7 @@ public class MainActivity extends AppCompatActivity
                  */
                 LocalDate localDate = new LocalDate();
                 String year = monthModel.getYear() == localDate.getYear() ? "" : monthModel.getYear() + "";
-                monthname.setText(monthModel.getMonthnamestr() + " " + year);
+//                monthname.setText(monthModel.getMonthnamestr() + " " + year);
                 if (weekviewcontainer.getVisibility()==View.VISIBLE){
                     Calendar todaydate=Calendar.getInstance();
                     todaydate.set(Calendar.DAY_OF_MONTH,1);
@@ -508,15 +509,15 @@ public class MainActivity extends AppCompatActivity
         }
         toolbar = findViewById(R.id.toolbar);
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
-        mArrowImageView = findViewById(R.id.arrowImageView);
+//        mArrowImageView = findViewById(R.id.arrowImageView);
         if (monthviewpager.getVisibility() == View.VISIBLE) {
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
             mAppBar.setElevation(0);
-            mArrowImageView.setVisibility(View.INVISIBLE);
+//            mArrowImageView.setVisibility(View.INVISIBLE);
         } else {
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
             mAppBar.setElevation(20);
-            mArrowImageView.setVisibility(View.VISIBLE);
+//            mArrowImageView.setVisibility(View.VISIBLE);
         }
 
         mNestedView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -620,8 +621,8 @@ public class MainActivity extends AppCompatActivity
                     myshadow.setLayoutParams(params);
                     }
 
-
-                    mArrowImageView.setRotation(progress * 180);
+//
+//                    mArrowImageView.setRotation(progress * 180);
                     mIsExpanded = verticalOffset == 0;
                     mAppBarIdle = mAppBarOffset >= 0 || mAppBarOffset <= mAppBarMaxOffset;
                     float alpha = (float) -verticalOffset / totalScrollRange;
@@ -654,20 +655,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        findViewById(R.id.backsupport).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+//        findViewById(R.id.backsupport).setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+////
+//                        if (monthviewpager.getVisibility() == View.VISIBLE) return;
+//                        mIsExpanded = !mIsExpanded;
+//                        mNestedView.stopScroll();
 //
-                        if (monthviewpager.getVisibility() == View.VISIBLE) return;
-                        mIsExpanded = !mIsExpanded;
-                        mNestedView.stopScroll();
-
-                        mAppBar.setExpanded(mIsExpanded, true);
-
-
-                    }
-                });
+//                        mAppBar.setExpanded(mIsExpanded, true);
+//
+//
+//                    }
+//                });
 
         /////////////////weekview implemention/////
          myshadow=findViewById(R.id.myshadow);
@@ -739,25 +740,25 @@ public class MainActivity extends AppCompatActivity
 
             LocalDate localDate = new LocalDate();
             String year = event.getMessage().getYear() == localDate.getYear() ? "" : event.getMessage().getYear() + "";
-            monthname.setText(event.getMessage().toString("MMMM") + " " + year);
+//            monthname.setText(event.getMessage().toString("MMMM") + " " + year);
 
 
             long diff = System.currentTimeMillis() - lasttime;
             boolean check = diff > 600;
             if (check && event.mdy > 0) {
-                monthname.setTranslationY(35);
-                mArrowImageView.setTranslationY(35);
+//                monthname.setTranslationY(35);
+//                mArrowImageView.setTranslationY(35);
                 lasttime = System.currentTimeMillis();
-                monthname.animate().translationY(0).setDuration(200).start();
-                mArrowImageView.animate().translationY(0).setDuration(200).start();
+//                monthname.animate().translationY(0).setDuration(200).start();
+//                mArrowImageView.animate().translationY(0).setDuration(200).start();
 
             } else if (check && event.mdy < 0) {
 
-                monthname.setTranslationY(-35);
-                mArrowImageView.setTranslationY(-35);
+//                monthname.setTranslationY(-35);
+//                mArrowImageView.setTranslationY(-35);
                 lasttime = System.currentTimeMillis();
-                monthname.animate().translationY(0).setDuration(200).start();
-                mArrowImageView.animate().translationY(0).setDuration(200).start();
+//                monthname.animate().translationY(0).setDuration(200).start();
+//                mArrowImageView.animate().translationY(0).setDuration(200).start();
             }
 
 
@@ -919,7 +920,7 @@ public class MainActivity extends AppCompatActivity
             monthviewpager.setVisibility(View.VISIBLE);
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
             mAppBar.setElevation(0);
-            mArrowImageView.setVisibility(View.INVISIBLE);
+//            mArrowImageView.setVisibility(View.INVISIBLE);
         } else {
             EventBus.getDefault().unregister(this);
             super.onBackPressed();
@@ -1006,7 +1007,7 @@ public class MainActivity extends AppCompatActivity
         MainActivity.lastdate = new LocalDate(year, month, day);
         LocalDate localDate = new LocalDate();
         String yearstr = MainActivity.lastdate.getYear() == localDate.getYear() ? "" : MainActivity.lastdate.getYear() + "";
-        monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
+//        monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
         calendarView.setCurrentmonth(MainActivity.lastdate);
         calendarView.adjustheight();
         mIsExpanded = false;
@@ -1016,7 +1017,7 @@ public class MainActivity extends AppCompatActivity
         mNestedView.setVisibility(View.VISIBLE);
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
         mAppBar.setElevation(20);
-        mArrowImageView.setVisibility(View.VISIBLE);
+//        mArrowImageView.setVisibility(View.VISIBLE);
 
     }
 
@@ -1173,7 +1174,7 @@ public class MainActivity extends AppCompatActivity
 
                 EndViewHolder holder = (EndViewHolder) viewHolder;
                 holder.eventimageview.setImageResource(monthresource[eventalllist.get(position).getLocalDate().getMonthOfYear() - 1]);
-                holder.monthname.setText(eventalllist.get(position).getLocalDate().toString("MMMM YYYY"));
+//                holder.monthname.setText(eventalllist.get(position).getLocalDate().toString("MMMM YYYY"));
             } else if (viewtype == 2 || viewtype == 100 || viewtype == 200 || viewtype == 1000) {
 
             } else {
@@ -1415,13 +1416,13 @@ public class MainActivity extends AppCompatActivity
         class EndViewHolder extends RecyclerView.ViewHolder {
 
             ScrollParallaxImageView eventimageview;
-            TextView monthname;
+//            TextView monthname;
 
             public EndViewHolder(View itemView) {
                 super(itemView);
                 eventimageview = itemView.findViewById(R.id.imageView);
                 eventimageview.setParallaxStyles(new VerticalMovingStyle());
-                monthname = itemView.findViewById(R.id.textView11);
+//                monthname = itemView.findViewById(R.id.textView11);
             }
         }
 
@@ -1707,15 +1708,15 @@ public class MainActivity extends AppCompatActivity
             MainActivity.lastdate=localDate;
 
             String year = localDate.getYear() == LocalDate.now().getYear() ? "" : localDate.getYear() + "";
-            if (!monthname.getText().equals(localDate.toString("MMM") + " " + year)){
-                MainActivity.lastdate=localDate;
-                calendarView.setCurrentmonth(localDate);
-                calendarView.adjustheight();
-                mIsExpanded = false;
-                mAppBar.setExpanded(false, false);
-                monthname.setText(localDate.toString("MMM") + " " + year);
-
-            }
+//            if (!monthname.getText().equals(localDate.toString("MMM") + " " + year)){
+//                MainActivity.lastdate=localDate;
+//                calendarView.setCurrentmonth(localDate);
+//                calendarView.adjustheight();
+//                mIsExpanded = false;
+//                mAppBar.setExpanded(false, false);
+//                monthname.setText(localDate.toString("MMM") + " " + year);
+//
+//            }
 
         } else {
             // calendarView.setCurrentmonth(i);

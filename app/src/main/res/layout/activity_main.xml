@@ -63,42 +63,55 @@
                         android:clickable="true"
                         android:focusable="true">
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/backsupport"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:layout_marginBottom="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                        <com.google.android.material.bottomnavigation.BottomNavigationView
+                            android:id="@+id/navigation_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="start"
+                            android:background="@android:color/white"
+                            app:itemIconPadding="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/monthname"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/googlesans_regular"
-                                android:text="June"
-                                android:textColor="#464646"
-                                android:textSize="20sp" />
-                            <ImageView
-                                android:id="@+id/arrowImageView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_arrow_drop_up_black_24dp"
-                                tools:ignore="ContentDescription,RtlHardcoded" />
 
-                        </LinearLayout>
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:menu="@menu/nav_item" />
+
+<!--                        <View-->
+<!--                            android:id="@+id/backsupport"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:background="?attr/selectableItemBackground"-->
+<!--                            android:clickable="true"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/navigation_view" />-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            android:gravity="center"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            android:layout_height="wrap_content">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/monthname"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/googlesans_regular"-->
+<!--                                android:text="June"-->
+<!--                                android:textColor="#464646"-->
+<!--                                android:textSize="20sp" />-->
+<!--                            <ImageView-->
+<!--                                android:id="@+id/arrowImageView"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:src="@drawable/ic_arrow_drop_up_black_24dp"-->
+<!--                                tools:ignore="ContentDescription,RtlHardcoded" />-->
+
+<!--                        </LinearLayout>-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,7 +168,7 @@
                     app:eventTextSize="12sp"
 
                     app:allDayEventHeight="20dp"
-                    app:hourHeight="30dp"
+                    app:hourHeight="60dp"
                     app:showNowLine="true"
                     app:nowLineColor="#000"
                     app:eventCornerRadius="3dp"
@@ -164,9 +177,9 @@
                     app:headerColumnTextColor="#606368"
                     app:headerRowPadding="9dp"
                     app:columnGap="0dp"
-                    app:noOfVisibleDays="3"
+                    app:noOfVisibleDays="1"
                     app:headerRowBackgroundColor="@android:color/white"
-                    app:hourSeparatorHeight="1.3dp"
+                    app:hourSeparatorHeight="1.2dp"
                     app:hourSeparatorColor="#EDEDED"
                     app:dayBackgroundColor="@android:color/white"
                     app:todayBackgroundColor="#ff1a73e8"
@@ -188,6 +201,7 @@
 
         </ScrollView>
 
+        //for event info
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -293,23 +307,19 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:itemIconPadding="16dp"
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:itemIconPadding="16dp"-->
 
-        android:id="@+id/navigation_view"
-        android:background="@android:color/white"
-       app:itemBackground="@drawable/nav_back"
-        app:headerLayout="@layout/drawerheader"
-        app:menu="@menu/nav_item"
-        >
-
+<!--        android:id="@+id/left_navigation_view"-->
+<!--        android:background="@android:color/white"-->
+<!--       app:itemBackground="@drawable/nav_back"-->
+<!--        app:headerLayout="@layout/drawerheader"-->
+<!--        app:menu="@menu/left_bar_menu" />-->
 
 
-
-    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
 
 
