@@ -33,7 +33,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|enterAlways"
                 app:statusBarScrim="?attr/colorPrimaryDark">
 
-                <!--large view -->
+<!--                large view -->
                 <com.example.GoogleCalendar.GooglecalenderView
                     android:id="@+id/calander"
                     android:layout_width="match_parent"
@@ -75,6 +75,32 @@
 
                             app:layout_constraintTop_toTopOf="parent"
                             app:menu="@menu/nav_item" />
+
+<!--                        <com.google.android.material.tabs.TabLayout-->
+<!--                            android:id="@+id/tab1"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/navigation_view"-->
+<!--                            app:tabIndicatorColor="#00BFFF"-->
+<!--                            app:tabSelectedTextColor="#00BFFF"-->
+<!--                            app:tabTextColor="@color/black">-->
+
+<!--                        </com.google.android.material.tabs.TabLayout>-->
+
+<!--                        <androidx.viewpager.widget.ViewPager-->
+<!--                            android:id="@+id/viewPager1"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginTop="0dp">-->
+
+<!--                        </androidx.viewpager.widget.ViewPager>-->
+
+
+
+
 
 <!--                        <View-->
 <!--                            android:id="@+id/backsupport"-->
@@ -120,6 +146,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        // date bar
         <com.example.GoogleCalendar.MyRecyclerView
             android:id="@+id/nestedView"
             android:layout_width="match_parent"
@@ -201,7 +228,7 @@
 
         </ScrollView>
 
-        //for event info
+        //for event info interface
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

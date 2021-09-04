@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+<!--        <item-->
+<!--            android:id="@+id/Day"-->
+<!--            android:checked="false"-->
+<!--            android:icon="@drawable/ic_box"-->
+<!--            android:title="Day" />-->
+<!--        <item-->
+<!--            android:id="@+id/Week"-->
+<!--            android:checked="false"-->
+<!--            android:icon="@drawable/ic_blocks"-->
+<!--            android:title="Week" />-->
+<!--        <item-->
+<!--            android:id="@+id/monthviewitem"-->
+<!--            android:checked="false"-->
+<!--            android:icon="@drawable/ic_bottom"-->
+<!--            android:title="Month" />-->
+
+
         <item
             android:id="@+id/Day"
             android:checked="false"
-            android:icon="@drawable/ic_box"
             android:title="Day" />
         <item
             android:id="@+id/Week"
             android:checked="false"
-            android:icon="@drawable/ic_blocks"
             android:title="Week" />
         <item
             android:id="@+id/monthviewitem"
             android:checked="false"
-            android:icon="@drawable/ic_bottom"
             android:title="Month" />
     </group>
 </menu>

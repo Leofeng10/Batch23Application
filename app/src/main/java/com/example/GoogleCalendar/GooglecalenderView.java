@@ -129,7 +129,7 @@ public class GooglecalenderView extends LinearLayout {
                 if (minweek.getMonthOfYear() == minweek.plusDays(6).getMonthOfYear()) {
                     String lastpattern = minweek.getYear() == currentyear ? "d MMM" : "d MMM YYYY";
 
-                    String s[] = {"tojigs" + minweek.toString("d").toUpperCase() + " - " + minweek.plusDays(6).toString(lastpattern).toUpperCase()};
+                    String s[] = {"Nothing" + minweek.toString("d").toUpperCase() + " - " + minweek.plusDays(6).toString(lastpattern).toUpperCase()};
 
                     if (!eventhash.containsKey(minweek)) eventhash.put(minweek, new EventInfo(s));
 
@@ -138,7 +138,7 @@ public class GooglecalenderView extends LinearLayout {
                 } else {
 
                     String lastpattern = minweek.getYear() == currentyear ? "d MMM" : "d MMM YYYY";
-                    String s[] = {"tojigs" + minweek.toString("d MMM").toUpperCase() + " - " + minweek.plusDays(6).toString(lastpattern).toUpperCase()};
+                    String s[] = {"Nothing" + minweek.toString("d MMM").toUpperCase() + " - " + minweek.plusDays(6).toString(lastpattern).toUpperCase()};
 
 
                     if (!eventhash.containsKey(minweek)) eventhash.put(minweek, new EventInfo(s));
@@ -267,7 +267,7 @@ public class GooglecalenderView extends LinearLayout {
                 int type = 0;
                 if (s.startsWith("todaydate")) type = 2;
                 else if (s.equals("start")) type = 1;
-                else if (s.startsWith("tojigs")) type = 3;
+                else if (s.startsWith("Nothing")) type = 3;
 
                 if (type == 2 && eventModelslist.get(eventModelslist.size() - 1).getType() == 0 && eventModelslist.get(eventModelslist.size() - 1).getLocalDate().equals(localDateStringEntry.getKey())) {
 

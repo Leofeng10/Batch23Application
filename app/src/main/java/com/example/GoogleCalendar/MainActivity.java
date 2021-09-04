@@ -52,6 +52,7 @@ import com.gjiazhe.scrollparallaximageview.parallaxstyle.VerticalMovingStyle;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -132,21 +133,10 @@ public class MainActivity extends AppCompatActivity
     private ImageButton closebtn;
     private HashMap<LocalDate, Integer> dupindextrack;
      View weekviewcontainer;
+    TabLayout tabLayout;
+    ViewPager viewPager;
     private String[] var = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN",};
-    private int[] monthresource = {
-            R.drawable.bkg_01_jan,
-            R.drawable.bkg_02_feb,
-            R.drawable.bkg_03_mar,
-            R.drawable.bkg_04_apr,
-            R.drawable.bkg_05_may,
-            R.drawable.bkg_06_jun,
-            R.drawable.bkg_07_jul,
-            R.drawable.bkg_08_aug,
-            R.drawable.bkg_09_sep,
-            R.drawable.bkg_10_oct,
-            R.drawable.bkg_11_nov,
-            R.drawable.bkg_12_dec
-    };
+
 
     WeekView mWeekView;
 
@@ -217,6 +207,7 @@ public class MainActivity extends AppCompatActivity
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mi.setTitle(mNewTitle);
     }
+
     public int getnavigationHeight() {
         Resources resources = getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -224,6 +215,27 @@ public class MainActivity extends AppCompatActivity
             return resources.getDimensionPixelSize(resourceId);
         }
         return 0;
+    }
+
+    public void getTab(){
+        final ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+//
+//        tabLayout = findViewById(R.id.tab1);
+//        viewPager = findViewById(R.id.viewPager1);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                viewPagerAdapter.addFragment(Today.getInstance(), "Today");
+                viewPagerAdapter.addFragment(Week.getInstance(), "Week");
+                viewPagerAdapter.addFragment(Month.getInstance(), "Month");
+
+                viewPager.setAdapter(viewPagerAdapter);
+
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
+
+
     }
 
 
@@ -301,6 +313,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+//        tabLayout = findViewById(R.id.tab1);
+//        viewPager = findViewById(R.id.viewPager1);
+//
+//        getTab();
         setContentView(R.layout.activity_main);
         mWeekView = (WeekView) findViewById(R.id.weekView);
         weekviewcontainer=findViewById(R.id.weekViewcontainer);
@@ -377,21 +393,6 @@ public class MainActivity extends AppCompatActivity
                     monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), true);
 
                 } else {
-                    LocalDate localDate = new LocalDate();
-                    String yearstr = MainActivity.lastdate.getYear() == localDate.getYear() ? "" : MainActivity.lastdate.getYear() + "";
-//                    monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
-                    calendarView.setCurrentmonth(MainActivity.lastdate);
-                    calendarView.adjustheight();
-                    mIsExpanded = false;
-                    mAppBar.setExpanded(false, false);
-                    EventBus.getDefault().post(new MessageEvent(MainActivity.lastdate));
-                    monthviewpager.setVisibility(View.GONE);
-                    weekviewcontainer.setVisibility(View.GONE);
-                    mNestedView.setVisibility(View.VISIBLE);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    mAppBar.setElevation(20);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-//                    drawerLayout.closeDrawer(Gravity.LEFT);
                 }
                 item.setChecked(true);
                 return true;
@@ -439,17 +440,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int i) {
 
-//                if (monthviewpager.getVisibility() == View.GONE) return;
-//                if (isAppBarClosed()) {
-//                    LocalDate localDate = new LocalDate();
-//                    MonthPageAdapter monthPageAdapter = (MonthPageAdapter) monthviewpager.getAdapter();
-//                    MonthModel monthModel = monthPageAdapter.getMonthModels().get(i);
-//                    String year = monthModel.getYear() == localDate.getYear() ? "" : monthModel.getYear() + "";
-//                    monthname.setText(monthModel.getMonthnamestr() + " " + year);
-//                    MainActivity.lastdate=new LocalDate(monthModel.getYear(),monthModel.getMonth(),1);
-//                } else {
-//                    // calendarView.setCurrentmonth(i);
-//                }
             }
 
             @Override
@@ -655,20 +645,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        findViewById(R.id.backsupport).setOnClickListener(
-//                new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-////
-//                        if (monthviewpager.getVisibility() == View.VISIBLE) return;
-//                        mIsExpanded = !mIsExpanded;
-//                        mNestedView.stopScroll();
-//
-//                        mAppBar.setExpanded(mIsExpanded, true);
-//
-//
-//                    }
-//                });
+
 
         /////////////////weekview implemention/////
          myshadow=findViewById(R.id.myshadow);
@@ -1101,87 +1078,32 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == 0) {
-
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.view_item, parent, false);
-                return new ItemViewHolder(view);
-            } else if (viewType == 5) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.viewitemlessspace, parent, false);
-                return new ItemViewHolder(view);
-            } else if (viewType == 100) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.extraspace, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            } else if (viewType == 200) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.liitlespace, parent, false);
-                return new RecyclerView.ViewHolder(view) {
-                };
-            } else if (viewType == 1) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.viewlast, parent, false);
-                return new EndViewHolder(view);
-            } else if (viewType == 2) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.noplanlay, parent, false);
-                return new NoplanViewHolder(view);
-            } else if (viewType == 1000) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.noplanlittlespace, parent, false);
-                return new NoplanViewHolder(view);
-            } else if (viewType == 6) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.rangelayextrabottomspace, parent, false);
-                return new RangeViewHolder(view);
-            } else if (viewType == 7) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.rangelayextratopspace, parent, false);
-                return new RangeViewHolder(view);
-            } else {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.rangelay, parent, false);
-                return new RangeViewHolder(view);
-            }
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.view_item, parent, false);
+            return new ItemViewHolder(view);
 
         }
 
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-            int viewtype = getItemViewType(position);
-            if (viewtype == 0 || viewtype == 5) {
 
-                ItemViewHolder holder = (ItemViewHolder) viewHolder;
-                GradientDrawable shape =  new GradientDrawable();
-                shape.setCornerRadius( getResources().getDimensionPixelSize(R.dimen.fourdp) );
-                shape.setColor(eventalllist.get(position).getColor());
-                holder.eventtextview.setBackground(shape);
-                holder.eventtextview.setText(eventalllist.get(position).getEventname());
+            ItemViewHolder holder = (ItemViewHolder) viewHolder;
+            GradientDrawable shape =  new GradientDrawable();
+            shape.setCornerRadius( getResources().getDimensionPixelSize(R.dimen.fourdp) );
+            shape.setColor(eventalllist.get(position).getColor());
+            holder.eventtextview.setBackground(shape);
+            holder.eventtextview.setText(eventalllist.get(position).getEventname());
 
 
-                if (position + 1 < eventalllist.size() && eventalllist.get(position).getLocalDate().equals(today) && (!eventalllist.get(position + 1).getLocalDate().equals(today) || eventalllist.get(position + 1).getType() == 100 || eventalllist.get(position + 1).getType() == 200)) {
-                    holder.circle.setVisibility(View.VISIBLE);
-                    holder.line.setVisibility(View.VISIBLE);
-
-                } else {
-                    holder.circle.setVisibility(View.GONE);
-                    holder.line.setVisibility(View.GONE);
-                }
-            } else if (viewtype == 1) {
-
-                EndViewHolder holder = (EndViewHolder) viewHolder;
-                holder.eventimageview.setImageResource(monthresource[eventalllist.get(position).getLocalDate().getMonthOfYear() - 1]);
-//                holder.monthname.setText(eventalllist.get(position).getLocalDate().toString("MMMM YYYY"));
-            } else if (viewtype == 2 || viewtype == 100 || viewtype == 200 || viewtype == 1000) {
+            if (position + 1 < eventalllist.size() && eventalllist.get(position).getLocalDate().equals(today) && (!eventalllist.get(position + 1).getLocalDate().equals(today) || eventalllist.get(position + 1).getType() == 100 || eventalllist.get(position + 1).getType() == 200)) {
+                holder.circle.setVisibility(View.VISIBLE);
+                holder.line.setVisibility(View.VISIBLE);
 
             } else {
-                RangeViewHolder holder = (RangeViewHolder) viewHolder;
-                holder.rangetextview.setText(eventalllist.get(position).getEventname().replaceAll("tojigs", ""));
+                holder.circle.setVisibility(View.GONE);
+                holder.line.setVisibility(View.GONE);
             }
-
         }
 
         @Override
@@ -1413,38 +1335,9 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        class EndViewHolder extends RecyclerView.ViewHolder {
 
-            ScrollParallaxImageView eventimageview;
-//            TextView monthname;
 
-            public EndViewHolder(View itemView) {
-                super(itemView);
-                eventimageview = itemView.findViewById(R.id.imageView);
-                eventimageview.setParallaxStyles(new VerticalMovingStyle());
-//                monthname = itemView.findViewById(R.id.textView11);
-            }
-        }
 
-        class NoplanViewHolder extends RecyclerView.ViewHolder {
-
-            TextView noplantextview;
-
-            public NoplanViewHolder(View itemView) {
-                super(itemView);
-                noplantextview = itemView.findViewById(R.id.view_noplan_textview);
-            }
-        }
-
-        class RangeViewHolder extends RecyclerView.ViewHolder {
-
-            TextView rangetextview;
-
-            public RangeViewHolder(View itemView) {
-                super(itemView);
-                rangetextview = itemView.findViewById(R.id.view_range_textview);
-            }
-        }
     }
 
 
