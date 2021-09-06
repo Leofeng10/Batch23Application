@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,6 +65,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -135,10 +137,32 @@ public class MainActivity extends AppCompatActivity
      View weekviewcontainer;
     TabLayout tabLayout;
     ViewPager viewPager;
+
     private String[] var = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN",};
 
 
     WeekView mWeekView;
+
+    public String nextDay (String currentDay) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+        cal.setTime(sdf.parse(currentDay + " 2021"));
+        cal.add(Calendar.DATE, 1);
+        return cal.getTime().toString().substring(0,10);
+    }
+
+    public String lastDay (String currentDay) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+        cal.setTime(sdf.parse(currentDay + " 2021"));
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime().toString().substring(0,10);
+    }
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -309,18 +333,26 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//        tabLayout = findViewById(R.id.tab1);
-//        viewPager = findViewById(R.id.viewPager1);
-//
-//        getTab();
+
         setContentView(R.layout.activity_main);
+
+
+        tabLayout = findViewById(R.id.tab);
+        viewPager = findViewById(R.id.viewPager);
+        getTab();
+
+
+
         mWeekView = (WeekView) findViewById(R.id.weekView);
         weekviewcontainer=findViewById(R.id.weekViewcontainer);
-//       drawerLayout=findViewById(R.id.drawer_layout);
         BottomNavigationView navigationView=findViewById(R.id.navigation_view);
         Menu m = navigationView.getMenu();
         for (int i=0;i<m.size();i++) {
@@ -338,6 +370,97 @@ public class MainActivity extends AppCompatActivity
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
+
+
+        TextView month1 = (TextView) findViewById(R.id.month1);
+        TextView month2 = (TextView) findViewById(R.id.month2);
+        TextView month3 = (TextView) findViewById(R.id.month3);
+        TextView month4 = (TextView) findViewById(R.id.month4);
+        TextView month5 = (TextView) findViewById(R.id.month5);
+        TextView day1 = (TextView) findViewById(R.id.day1);
+        TextView day2 = (TextView) findViewById(R.id.day2);
+        TextView day3 = (TextView) findViewById(R.id.day3);
+        TextView day4 = (TextView) findViewById(R.id.day4);
+        TextView day5 = (TextView) findViewById(R.id.day5);
+        TextView week1 = (TextView) findViewById(R.id.week1);
+        TextView week2 = (TextView) findViewById(R.id.week2);
+        TextView week3 = (TextView) findViewById(R.id.week3);
+        TextView week4 = (TextView) findViewById(R.id.week4);
+        TextView week5 = (TextView) findViewById(R.id.week5);
+        Button buttonRight = findViewById(R.id.buttonDayRight);
+        Button buttonLeft = findViewById(R.id.buttonDayLeft);
+
+        String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
+
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    String nextDay = nextDay(currentDay);
+                    week1.setText(nextDay.substring(0,3));
+                    month1.setText(nextDay.substring(4,7));
+                    day1.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week2.setText(nextDay.substring(0,3));
+                    month2.setText(nextDay.substring(4,7));
+                    day2.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week3.setText(nextDay.substring(0,3));
+                    month3.setText(nextDay.substring(4,7));
+                    day3.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week4.setText(nextDay.substring(0,3));
+                    month4.setText(nextDay.substring(4,7));
+                    day4.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week5.setText(nextDay.substring(0,3));
+                    month5.setText(nextDay.substring(4,7));
+                    day5.setText(nextDay.substring(8,10));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    String lastDay = lastDay(currentDay);
+                    week1.setText(lastDay.substring(0,3));
+                    month1.setText(lastDay.substring(4,7));
+                    day1.setText(lastDay.substring(8,10));
+
+                    String nextDay = nextDay(lastDay);
+                    week2.setText(nextDay.substring(0,3));
+                    month2.setText(nextDay.substring(4,7));
+                    day2.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week3.setText(nextDay.substring(0,3));
+                    month3.setText(nextDay.substring(4,7));
+                    day3.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week4.setText(nextDay.substring(0,3));
+                    month4.setText(nextDay.substring(4,7));
+                    day4.setText(nextDay.substring(8,10));
+
+                    nextDay = nextDay(nextDay);
+                    week5.setText(nextDay.substring(0,3));
+                    month5.setText(nextDay.substring(4,7));
+                    day5.setText(nextDay.substring(8,10));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -399,6 +522,8 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
+
+
 
         eventalllist = new ArrayList<>();
         indextrack = new HashMap<>();

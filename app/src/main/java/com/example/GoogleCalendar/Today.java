@@ -63,67 +63,67 @@ public class Today extends Fragment implements View.OnClickListener{
         TextView week5 = (TextView) view.findViewById(R.id.week5);
         String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
 
-        switch (v.getId()){
-            case R.id.buttonDayRight:
-                try {
-                    String nextDay = nextDay(currentDay);
-                    week1.setText(nextDay.substring(0,3));
-                    month1.setText(nextDay.substring(4,7));
-                    day1.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week2.setText(nextDay.substring(0,3));
-                    month2.setText(nextDay.substring(4,7));
-                    day2.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week3.setText(nextDay.substring(0,3));
-                    month3.setText(nextDay.substring(4,7));
-                    day3.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week4.setText(nextDay.substring(0,3));
-                    month4.setText(nextDay.substring(4,7));
-                    day4.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week5.setText(nextDay.substring(0,3));
-                    month5.setText(nextDay.substring(4,7));
-                    day5.setText(nextDay.substring(8,10));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.buttonDayLeft:
-                try {
-                    String lastDay = lastDay(currentDay);
-                    week1.setText(lastDay.substring(0,3));
-                    month1.setText(lastDay.substring(4,7));
-                    day1.setText(lastDay.substring(8,10));
-
-                    String nextDay = nextDay(lastDay);
-                    week2.setText(nextDay.substring(0,3));
-                    month2.setText(nextDay.substring(4,7));
-                    day2.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week3.setText(nextDay.substring(0,3));
-                    month3.setText(nextDay.substring(4,7));
-                    day3.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week4.setText(nextDay.substring(0,3));
-                    month4.setText(nextDay.substring(4,7));
-                    day4.setText(nextDay.substring(8,10));
-
-                    nextDay = nextDay(nextDay);
-                    week5.setText(nextDay.substring(0,3));
-                    month5.setText(nextDay.substring(4,7));
-                    day5.setText(nextDay.substring(8,10));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-        }
+//        switch (v.getId()){
+//            case R.id.buttonDayRight:
+//                try {
+//                    String nextDay = nextDay(currentDay);
+//                    week1.setText(nextDay.substring(0,3));
+//                    month1.setText(nextDay.substring(4,7));
+//                    day1.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week2.setText(nextDay.substring(0,3));
+//                    month2.setText(nextDay.substring(4,7));
+//                    day2.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week3.setText(nextDay.substring(0,3));
+//                    month3.setText(nextDay.substring(4,7));
+//                    day3.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week4.setText(nextDay.substring(0,3));
+//                    month4.setText(nextDay.substring(4,7));
+//                    day4.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week5.setText(nextDay.substring(0,3));
+//                    month5.setText(nextDay.substring(4,7));
+//                    day5.setText(nextDay.substring(8,10));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
+//            case R.id.buttonDayLeft:
+//                try {
+//                    String lastDay = lastDay(currentDay);
+//                    week1.setText(lastDay.substring(0,3));
+//                    month1.setText(lastDay.substring(4,7));
+//                    day1.setText(lastDay.substring(8,10));
+//
+//                    String nextDay = nextDay(lastDay);
+//                    week2.setText(nextDay.substring(0,3));
+//                    month2.setText(nextDay.substring(4,7));
+//                    day2.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week3.setText(nextDay.substring(0,3));
+//                    month3.setText(nextDay.substring(4,7));
+//                    day3.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week4.setText(nextDay.substring(0,3));
+//                    month4.setText(nextDay.substring(4,7));
+//                    day4.setText(nextDay.substring(8,10));
+//
+//                    nextDay = nextDay(nextDay);
+//                    week5.setText(nextDay.substring(0,3));
+//                    month5.setText(nextDay.substring(4,7));
+//                    day5.setText(nextDay.substring(8,10));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//        }
     }
 
     public String nextDay (String currentDay) throws ParseException {
