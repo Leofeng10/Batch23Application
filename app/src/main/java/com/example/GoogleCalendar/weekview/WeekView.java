@@ -1497,9 +1497,7 @@ public class WeekView extends View {
         this.mEventClickListener = listener;
     }
 
-//    public void setshadow(View shadow) {
-//        this.shadow = shadow;
-//    }
+
 
     /////////////////////////////////////////////////////////////////
     //
@@ -2181,10 +2179,7 @@ public class WeekView extends View {
                     }
 
                     int previous = (int) weekx;
-//                    if (mCurrentOrigin.x<0){
-//                        next*=-1;
-//                        previous*=-1;
-//                    }
+
                     if (Math.abs(Math.abs(mCurrentOrigin.x + k) - Math.abs(next)) < Math.abs(Math.abs(mCurrentOrigin.x + k) - Math.abs(previous))) {
 
 
@@ -2212,15 +2207,7 @@ public class WeekView extends View {
 
                     }
 
-//                    float small=Math.min(Math.abs(next-mCurrentOrigin.x),Math.abs(previous-mCurrentOrigin.x));
-//                    int j=1;
-//                    if (mCurrentOrigin.x<0)j=-1;
-//                    mCurrentOrigin.x=(small-mCurrentOrigin.x)*j;
-//                    invalidate();
-
-
                 }
-                //goToNearestOrigin();
             }
             mCurrentScrollDirection = Direction.NONE;
         }
@@ -2302,30 +2289,7 @@ public class WeekView extends View {
         mCurrentScrollDirection = mCurrentFlingDirection = Direction.NONE;
     }
 
-    @Override
-    public void computeScroll() {
-        super.computeScroll();
-//        if (mScroller.isFinished()) {
-//            if (mCurrentFlingDirection != Direction.NONE) {
-//                // Snap to day after fling is finished.
-//                Log.e("flingcall","flh"+mScroller.getCurrVelocity());
-//               goToNearestOrigin();
-//            }
-//        } else {
-//
-//            if (mCurrentFlingDirection != Direction.NONE && forceFinishScroll()) {
-//                Log.e("flingcall","finish"+mScroller.getStartX()+","+mMinimumFlingVelocity);
-//
-//               goToNearestOrigin();
-//            }
-//            else if (mScroller.computeScrollOffset()) {
-//                Log.e("flingcall","main"+mScroller.getStartX()+","+mMinimumFlingVelocity);
-//                mCurrentOrigin.y = mScroller.getCurrY();
-//                mCurrentOrigin.x = mScroller.getCurrX();
-//                ViewCompat.postInvalidateOnAnimation(this);
-//            }
-//        }
-    }
+
 
     /**
      * Check if scrolling should be stopped.
