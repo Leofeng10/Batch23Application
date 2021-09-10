@@ -67,8 +67,10 @@ import org.joda.time.LocalDateTime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -137,27 +139,14 @@ public class MainActivity extends AppCompatActivity
      View weekviewcontainer;
     TabLayout tabLayout;
     ViewPager viewPager;
+    private int TypeofWeekview = 0;
 
     private String[] var = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN",};
 
 
     WeekView mWeekView;
 
-    public String nextDay (String currentDay) throws ParseException {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
-        cal.setTime(sdf.parse(currentDay + " 2021"));
-        cal.add(Calendar.DATE, 1);
-        return cal.getTime().toString().substring(0,10);
-    }
 
-    public String lastDay (String currentDay) throws ParseException {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
-        cal.setTime(sdf.parse(currentDay + " 2021"));
-        cal.add(Calendar.DATE, -1);
-        return cal.getTime().toString().substring(0,10);
-    }
 
 
 
@@ -332,6 +321,21 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    public String nextDay (String currentDay) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+        cal.setTime(sdf.parse(currentDay + " 2021"));
+        cal.add(Calendar.DATE, 1);
+        return cal.getTime().toString().substring(0,10);
+    }
+
+    public String lastDay (String currentDay) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+        cal.setTime(sdf.parse(currentDay + " 2021"));
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime().toString().substring(0,10);
+    }
 
 
 
@@ -386,12 +390,72 @@ public class MainActivity extends AppCompatActivity
         Button buttonRight = findViewById(R.id.buttonDayRight);
         Button buttonLeft = findViewById(R.id.buttonDayLeft);
 
-        String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy");
+        Date date = new Date();
+        String nowTime = formatter.format(date);
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+        try {
+            cal.setTime(sdf.parse(nowTime));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        cal.add(Calendar.DATE, -2);
+        try {
+            String nextDay = cal.getTime().toString().substring(0,10);
+            Log.d("NEXTDAYYYYYY", nextDay);
+            week1.setText(nextDay.substring(0,3));
+            month1.setText(nextDay.substring(4,7));
+            day1.setText(nextDay.substring(8,10));
+
+            nextDay = nextDay(nextDay);
+            week2.setText(nextDay.substring(0,3));
+            month2.setText(nextDay.substring(4,7));
+            day2.setText(nextDay.substring(8,10));
+
+            nextDay = nextDay(nextDay);
+            week3.setText(nextDay.substring(0,3));
+            month3.setText(nextDay.substring(4,7));
+            day3.setText(nextDay.substring(8,10));
+
+            nextDay = nextDay(nextDay);
+            week4.setText(nextDay.substring(0,3));
+            month4.setText(nextDay.substring(4,7));
+            day4.setText(nextDay.substring(8,10));
+
+            nextDay = nextDay(nextDay);
+            week5.setText(nextDay.substring(0,3));
+            month5.setText(nextDay.substring(4,7));
+            day5.setText(nextDay.substring(8,10));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
 
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
+                if (TypeofWeekview == 1) {
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+                    try {
+                        cal.setTime(sdf.parse(currentDay + " 2021"));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    cal.add(Calendar.DATE, 6);
+                    currentDay = cal.getTime().toString().substring(0,10);
+                }
                 try {
+
+
                     String nextDay = nextDay(currentDay);
                     week1.setText(nextDay.substring(0,3));
                     month1.setText(nextDay.substring(4,7));
@@ -407,6 +471,7 @@ public class MainActivity extends AppCompatActivity
                     month3.setText(nextDay.substring(4,7));
                     day3.setText(nextDay.substring(8,10));
 
+
                     nextDay = nextDay(nextDay);
                     week4.setText(nextDay.substring(0,3));
                     month4.setText(nextDay.substring(4,7));
@@ -417,9 +482,14 @@ public class MainActivity extends AppCompatActivity
                     month5.setText(nextDay.substring(4,7));
                     day5.setText(nextDay.substring(8,10));
 
-                    Calendar todaydate=Calendar.getInstance();
-                    todaydate.add(Calendar.DATE, 1);
-                    mWeekView.goToDate(todaydate);
+                    String jumpto = week3.getText().toString() + " " + month3.getText().toString() + " " + day3.getText().toString();
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+                    cal.setTime(sdf.parse(jumpto + " 2021"));
+
+
+                    mWeekView.goToDate(cal);
 
 
                 } catch (ParseException e) {
@@ -431,7 +501,19 @@ public class MainActivity extends AppCompatActivity
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
 
+                if (TypeofWeekview == 1) {
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+                    try {
+                        cal.setTime(sdf.parse(currentDay + " 2021"));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    cal.add(Calendar.DATE, -6);
+                    currentDay = cal.getTime().toString().substring(0,10);
+                }
                 try {
                     String lastDay = lastDay(currentDay);
                     week1.setText(lastDay.substring(0,3));
@@ -458,9 +540,15 @@ public class MainActivity extends AppCompatActivity
                     month5.setText(nextDay.substring(4,7));
                     day5.setText(nextDay.substring(8,10));
 
-                    Calendar todaydate=Calendar.getInstance();
-                    todaydate.add(Calendar.DATE, -1);
-                    mWeekView.goToDate(todaydate);
+
+                    String jumpto = week3.getText().toString() + " " + month3.getText().toString() + " " + day3.getText().toString();
+
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy");
+                    cal.setTime(sdf.parse(jumpto + " 2021"));
+
+
+                    mWeekView.goToDate(cal);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -473,6 +561,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId()==R.id.Day){
+                    TypeofWeekview = 0;
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
                     mNestedView.setVisibility(View.GONE);
@@ -491,6 +580,7 @@ public class MainActivity extends AppCompatActivity
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(0);
                 } else if (item.getItemId()==R.id.Week){
+                    TypeofWeekview = 1;
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
                     mNestedView.setVisibility(View.GONE);
