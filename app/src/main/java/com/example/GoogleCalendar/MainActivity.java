@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
     private String daysList[] = {"", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"};
     public static int topspace = 0;
-    private View myshadow;
+//    private View myshadow;
     long lasttime;
     int mycolor;
     MyRecyclerView mNestedView;
@@ -535,7 +535,7 @@ public class MainActivity extends AppCompatActivity
         redlay = findViewById(R.id.redlay);
         redlay.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        shadow = findViewById(R.id.shadow);
+//        shadow = findViewById(R.id.shadow);
         closebtn = findViewById(R.id.closebtn);
         closebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -637,7 +637,7 @@ public class MainActivity extends AppCompatActivity
             mAppBar.setElevation(20);
 //            mArrowImageView.setVisibility(View.VISIBLE);
         }
-
+//
         mNestedView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             LinearLayoutManager llm = (LinearLayoutManager) mNestedView.getLayoutManager();
             DateAdapter dateAdapter = (DateAdapter) mNestedView.getAdapter();
@@ -734,9 +734,9 @@ public class MainActivity extends AppCompatActivity
 
                     }
                     if (Math.abs(progress)>0.45){
-                          ViewGroup.LayoutParams params = myshadow.getLayoutParams();
-                    params.height = (int) (getResources().getDimensionPixelSize(R.dimen.fourdp)*Math.abs(progress));
-                    myshadow.setLayoutParams(params);
+//                          ViewGroup.LayoutParams params = myshadow.getLayoutParams();
+//                    params.height = (int) (getResources().getDimensionPixelSize(R.dimen.fourdp)*Math.abs(progress));
+//                    myshadow.setLayoutParams(params);
                     }
 
 //
@@ -776,11 +776,11 @@ public class MainActivity extends AppCompatActivity
 
 
         /////////////////weekview implemention/////
-         myshadow=findViewById(R.id.myshadow);
+//         myshadow=findViewById(R.id.myshadow);
 
 
 
-        mWeekView.setshadow(myshadow);
+//        mWeekView.setshadow(myshadow);
         mWeekView.setfont( ResourcesCompat.getFont(this, R.font.googlesans_regular),0);
         mWeekView.setfont( ResourcesCompat.getFont(this, R.font.googlesansmed),1);
 
@@ -1018,7 +1018,8 @@ public class MainActivity extends AppCompatActivity
             mIsExpanded = false;
             mNestedView.stopScroll();
             mAppBar.setExpanded(false, true);
-        } else if (mNestedView.getVisibility() == View.VISIBLE) {
+        }
+        else if (mNestedView.getVisibility() == View.VISIBLE) {
             monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), false);
 
             mNestedView.setVisibility(View.GONE);
@@ -1026,7 +1027,8 @@ public class MainActivity extends AppCompatActivity
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
             mAppBar.setElevation(0);
 //            mArrowImageView.setVisibility(View.INVISIBLE);
-        } else {
+        }
+        else {
             EventBus.getDefault().unregister(this);
             super.onBackPressed();
             finish();
@@ -1369,7 +1371,7 @@ public class MainActivity extends AppCompatActivity
                         layoutParams.width = v.getWidth();
                         redlay.setLayoutParams(layoutParams);
                         redlay.setTranslationX(v.getLeft());
-                        redlay.setTranslationY(view.getTop() + toolbar.getHeight());
+//                        redlay.setTranslationY(view.getTop() + toolbar.getHeight());
                         redlay.setTranslationZ(0);
 
                             GradientDrawable shape =  new GradientDrawable();
@@ -1454,7 +1456,7 @@ public class MainActivity extends AppCompatActivity
                         animy.start();
                         animx.start();
                         eventview = v;
-                        fullview = view;
+//                        fullview = view;
 
                     }
                 });

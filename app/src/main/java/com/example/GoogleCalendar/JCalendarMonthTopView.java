@@ -73,7 +73,7 @@ public class JCalendarMonthTopView extends View {
                         }
                         MainActivity.lastdate = new LocalDate(year, month, dayModels.get(pos).getDay());
                         MainActivity mainActivity= (MainActivity) mContext;
-                        if (mainActivity.mNestedView.getVisibility()==VISIBLE) EventBus.getDefault().post(new MessageEvent(new LocalDate(year, month, dayModels.get(pos).getDay())));
+//                        if (mainActivity.mNestedView.getVisibility()==VISIBLE) EventBus.getDefault().post(new MessageEvent(new LocalDate(year, month, dayModels.get(pos).getDay())));
                         if (mainActivity.weekviewcontainer.getVisibility()==VISIBLE){
                             Calendar todaydate=Calendar.getInstance();
                             todaydate.set(Calendar.DAY_OF_MONTH,MainActivity.lastdate.getDayOfMonth());

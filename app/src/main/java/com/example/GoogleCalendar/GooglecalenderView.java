@@ -226,10 +226,11 @@ public class GooglecalenderView extends LinearLayout {
                 if (!mainActivity.isAppBarClosed()) {
 
                     adjustheight();
-                    if (mainActivity.mNestedView.getVisibility()==VISIBLE)EventBus.getDefault().post(new MessageEvent(new LocalDate(myPagerAdapter.monthModels.get(position).getYear(), myPagerAdapter.monthModels.get(position).getMonth(), 1)));
-                    else {
-                        MainActivity.lastdate=new LocalDate(myPagerAdapter.monthModels.get(position).getYear(), myPagerAdapter.monthModels.get(position).getMonth(), 1);
-                    }
+//                    if (mainActivity.mNestedView.getVisibility()==VISIBLE)EventBus.getDefault().post(new MessageEvent(new LocalDate(myPagerAdapter.monthModels.get(position).getYear(), myPagerAdapter.monthModels.get(position).getMonth(), 1)));
+//                    else {
+//                        MainActivity.lastdate=new LocalDate(myPagerAdapter.monthModels.get(position).getYear(), myPagerAdapter.monthModels.get(position).getMonth(), 1);
+//                    }
+                    MainActivity.lastdate=new LocalDate(myPagerAdapter.monthModels.get(position).getYear(), myPagerAdapter.monthModels.get(position).getMonth(), 1);
 
                     updategrid();
 

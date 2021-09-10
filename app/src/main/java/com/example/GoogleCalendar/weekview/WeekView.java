@@ -616,23 +616,23 @@ public class WeekView extends View {
                 float with = (mAllDayEventHeight * noofevent) + ((noofevent - 1) * 5) + mHeaderMarginBottom;
                 mHeaderHeight = Math.max(without, with);
 
-                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
+//                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
 
             } else {
                 float without = mHeaderTextHeight + jHeaderTextHeight + mHeaderMarginBottom + 70 + mHeaderRowPadding / 3.0f;
 
                 mHeaderHeight = without;
-                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
+//                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
             }
 
 
         } else {
             if (containsAllDayEvent) {
                 mHeaderHeight = mHeaderTextHeight + jHeaderTextHeight + ((mAllDayEventHeight * noofevent) + ((noofevent - 1) * 5) + mHeaderMarginBottom) + 70;
-                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
+//                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
             } else {
                 mHeaderHeight = mHeaderTextHeight + jHeaderTextHeight + mHeaderMarginBottom + 70;
-                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
+//                shadow.setY(mHeaderHeight - 70 + mHeaderRowPadding * 3);
             }
         }
 
@@ -1497,9 +1497,9 @@ public class WeekView extends View {
         this.mEventClickListener = listener;
     }
 
-    public void setshadow(View shadow) {
-        this.shadow = shadow;
-    }
+//    public void setshadow(View shadow) {
+//        this.shadow = shadow;
+//    }
 
     /////////////////////////////////////////////////////////////////
     //
