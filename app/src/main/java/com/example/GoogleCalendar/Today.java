@@ -46,22 +46,22 @@ public class Today extends Fragment implements View.OnClickListener{
     }
     @Override
     public void onClick(View v) {
-        TextView month1 = (TextView) view.findViewById(R.id.month1);
-        TextView month2 = (TextView) view.findViewById(R.id.month2);
-        TextView month3 = (TextView) view.findViewById(R.id.month3);
-        TextView month4 = (TextView) view.findViewById(R.id.month4);
-        TextView month5 = (TextView) view.findViewById(R.id.month5);
-        TextView day1 = (TextView) view.findViewById(R.id.day1);
-        TextView day2 = (TextView) view.findViewById(R.id.day2);
-        TextView day3 = (TextView) view.findViewById(R.id.day3);
-        TextView day4 = (TextView) view.findViewById(R.id.day4);
-        TextView day5 = (TextView) view.findViewById(R.id.day5);
-        TextView week1 = (TextView) view.findViewById(R.id.week1);
-        TextView week2 = (TextView) view.findViewById(R.id.week2);
-        TextView week3 = (TextView) view.findViewById(R.id.week3);
-        TextView week4 = (TextView) view.findViewById(R.id.week4);
-        TextView week5 = (TextView) view.findViewById(R.id.week5);
-        String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
+//        TextView month1 = (TextView) view.findViewById(R.id.month1);
+//        TextView month2 = (TextView) view.findViewById(R.id.month2);
+//        TextView month3 = (TextView) view.findViewById(R.id.month3);
+//        TextView month4 = (TextView) view.findViewById(R.id.month4);
+//        TextView month5 = (TextView) view.findViewById(R.id.month5);
+//        TextView day1 = (TextView) view.findViewById(R.id.day1);
+//        TextView day2 = (TextView) view.findViewById(R.id.day2);
+//        TextView day3 = (TextView) view.findViewById(R.id.day3);
+//        TextView day4 = (TextView) view.findViewById(R.id.day4);
+//        TextView day5 = (TextView) view.findViewById(R.id.day5);
+//        TextView week1 = (TextView) view.findViewById(R.id.week1);
+//        TextView week2 = (TextView) view.findViewById(R.id.week2);
+//        TextView week3 = (TextView) view.findViewById(R.id.week3);
+//        TextView week4 = (TextView) view.findViewById(R.id.week4);
+//        TextView week5 = (TextView) view.findViewById(R.id.week5);
+//        String currentDay = week1.getText().toString() + " " + month1.getText().toString() + " " + day1.getText().toString();
 
 //        switch (v.getId()){
 //            case R.id.buttonDayRight:

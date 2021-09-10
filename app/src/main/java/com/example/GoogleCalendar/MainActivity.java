@@ -253,9 +253,9 @@ public class MainActivity extends AppCompatActivity
                 viewPagerAdapter.addFragment(Week.getInstance(), "Week");
                 viewPagerAdapter.addFragment(Month.getInstance(), "Month");
 
-                viewPager.setAdapter(viewPagerAdapter);
-
-                tabLayout.setupWithViewPager(viewPager);
+                //viewPager.setAdapter(viewPagerAdapter);
+//
+//                tabLayout.setupWithViewPager(viewPager);
             }
         });
 
@@ -344,8 +344,8 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-
-        tabLayout = findViewById(R.id.tab);
+//
+//        tabLayout = findViewById(R.id.tab);
         viewPager = findViewById(R.id.viewPager);
         getTab();
 
@@ -420,6 +420,8 @@ public class MainActivity extends AppCompatActivity
                     week5.setText(nextDay.substring(0,3));
                     month5.setText(nextDay.substring(4,7));
                     day5.setText(nextDay.substring(8,10));
+
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -429,6 +431,7 @@ public class MainActivity extends AppCompatActivity
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
                     String lastDay = lastDay(currentDay);
                     week1.setText(lastDay.substring(0,3));
