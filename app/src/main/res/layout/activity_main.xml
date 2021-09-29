@@ -83,48 +83,116 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-<!--        month part-->
-        <com.example.GoogleCalendar.MyRecyclerView
-            android:id="@+id/nestedView"
-            android:layout_width="match_parent"
-            android:overScrollMode="never"
 
-            android:visibility="gone"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <!--        month part-->
 
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/monthviewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:translationZ="10dp"
-            android:visibility="gone"
-            android:id="@+id/shadow"
-            android:background="#22000000"
-            >
-        </View>
-
-
-<!--        day and week part-->
-        <ScrollView
-            android:layout_width="match_parent"
-            android:id="@+id/weekViewcontainer"
-            android:fillViewport="true"
-            android:visibility="visible"
-            android:nestedScrollingEnabled="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <RelativeLayout
+            <com.example.GoogleCalendar.MyRecyclerView
+                android:id="@+id/nestedView"
+                android:layout_width="match_parent"
+                android:overScrollMode="never"
+
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <LinearLayout
+                android:id="@+id/monthNav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/monthviewpager"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/buttonMonthLeft"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_left_arrow"
+                        app:backgroundTint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/monthText"
+                        android:layout_width="220dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/bg_rounded"
+                        android:gravity="center"
+                        android:text="Select Month"
+                        android:textColor="#ff1a73e8"
+                        android:textSize="24sp" />
+
+                    <Button
+                        android:id="@+id/buttonMonthRight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_right_arrow"
+                        app:backgroundTint="@color/black" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/monthviewpager"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:translationZ="10dp"
+                android:visibility="gone"
+                android:id="@+id/shadow"
+                android:background="#22000000"
                 >
+            </View>
+
+        </RelativeLayout>
+
+
+
+        <!--        day and week part-->
+        <ScrollView
+            android:id="@+id/weekViewcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:nestedScrollingEnabled="false"
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <com.example.GoogleCalendar.weekview.WeekView
                     android:id="@+id/weekView"
@@ -160,14 +228,15 @@
                     app:todayHeaderTextColor="#ff1a73e8" />
 
 
-
+                <!-- date navigator-->
                 <LinearLayout
+                    android:id="@+id/dateselect"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="1dp"
-                    android:id="@+id/dateselect"
                     android:orientation="horizontal"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <Button
@@ -642,10 +711,21 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/createEventButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="63dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/ic_baseline_add_circle_outline_24" />
+
 
             </RelativeLayout>
 
         </ScrollView>
+
 
         //for event info interface
         <androidx.constraintlayout.widget.ConstraintLayout

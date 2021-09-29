@@ -54,6 +54,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.common.collect.ImmutableBiMap;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -136,10 +137,13 @@ public class MainActivity extends AppCompatActivity
     private HashMap<LocalDate, Integer> indextrack;
     private ImageButton closebtn;
     private HashMap<LocalDate, Integer> dupindextrack;
+    private Button createEventButton, buttonMonthLeft, buttonMonthRight;
      View weekviewcontainer;
     TabLayout tabLayout;
     ViewPager viewPager;
     private int TypeofWeekview = 0;
+    private LinearLayout dateselect;
+    private LinearLayout monthNav;
 
     private String[] var = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN",};
 
@@ -337,6 +341,59 @@ public class MainActivity extends AppCompatActivity
         return cal.getTime().toString().substring(0,10);
     }
 
+    private static final ImmutableBiMap<Integer, String> mList =new ImmutableBiMap.Builder<Integer, String>()
+            .put(1,"Jan")
+            .put(2,"Feb")
+            .put(3,"Mar")
+            .put(4,"Apr")
+            .put(5,"May")
+            .put(6,"Jun")
+            .put(7,"Jul")
+            .put(8,"Aug")
+            .put(9,"Sep")
+            .put(10,"Oct")
+            .put(11,"Nov")
+            .put(12,"Dec")
+            .build();
+
+    public String lastMonth (String currentMonth){
+        if (currentMonth.equals("Select Month")){
+            int month = Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
+            String year = new SimpleDateFormat("yyyy").format(Calendar.getInstance().getTime());
+            return mList.get(month)+ " " + year;
+        }
+        else{
+            int month = mList.inverse().get(currentMonth.substring(0,3));
+            if (month == 1) {
+                int year = Integer.parseInt(currentMonth.substring(4));
+                return mList.get(12) + " " + String.valueOf(year - 1);
+            }
+            else{
+                return mList.get(month-1) + " " + currentMonth.substring(4);
+            }
+
+        }
+    }
+
+    public String nextMonth (String currentMonth){
+        if (currentMonth.equals("Select Month")){
+            int month = Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
+            String year = new SimpleDateFormat("yyyy").format(Calendar.getInstance().getTime());
+            return mList.get(month)+ " " + String.valueOf(year);
+        }
+        else{
+            int month = mList.inverse().get(currentMonth.substring(0,3));
+            if (month == 12) {
+                int year = Integer.parseInt(currentMonth.substring(4));
+                return mList.get(1) + " " + String.valueOf(year + 1);
+            }
+            else{
+                return mList.get(month+1) + " " + currentMonth.substring(4);
+            }
+
+        }
+    }
+
 
 
     @Override
@@ -347,9 +404,53 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.viewPager);
+        createEventButton = findViewById(R.id.createEventButton);
+
         getTab();
 
 
+        dateselect = findViewById(R.id.dateselect);
+        monthNav = findViewById(R.id.monthNav);
+
+
+
+        dateselect.setVisibility(View.VISIBLE);
+
+        buttonMonthRight = findViewById(R.id.buttonMonthRight);
+        buttonMonthLeft = findViewById(R.id.buttonMonthLeft);
+        TextView monthNavText = (TextView) findViewById(R.id.monthText);
+        if (monthNavText.getText().equals("Select Month")){
+            int month = Integer.parseInt(new SimpleDateFormat("MM").format(Calendar.getInstance().getTime()));
+            String year = new SimpleDateFormat("yyyy").format(Calendar.getInstance().getTime());
+            monthNavText.setText(mList.get(month)+ " " + String.valueOf(year));
+        }
+
+
+        buttonMonthLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currentMonth = monthNavText.getText().toString();
+                String lastmonth = lastMonth(currentMonth);
+                monthNavText.setText(lastmonth);
+                int month = mList.inverse().get(lastmonth.substring(0,3));
+                int year = Integer.parseInt(lastmonth.substring(4));
+                String newDate = year + "-" + month + "-1";
+                monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(LocalDate.parse(newDate)), true);
+            }
+        });
+
+        buttonMonthRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currentMonth = monthNavText.getText().toString();
+                String nextmonth = nextMonth(currentMonth);
+                monthNavText.setText(nextmonth);
+                int month = mList.inverse().get(nextmonth.substring(0,3));
+                int year = Integer.parseInt(nextmonth.substring(4));
+                String newDate = year + "-" + month + "-1";
+                monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(LocalDate.parse(newDate)), true);
+            }
+        });
 
         mWeekView = (WeekView) findViewById(R.id.weekView);
         weekviewcontainer=findViewById(R.id.weekViewcontainer);
@@ -565,6 +666,8 @@ public class MainActivity extends AppCompatActivity
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
                     mNestedView.setVisibility(View.GONE);
+                    dateselect.setVisibility(View.VISIBLE);
+                    monthNav.setVisibility(View.GONE);
                     mWeekView.setNumberOfVisibleDays(1);
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                         mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
@@ -584,6 +687,8 @@ public class MainActivity extends AppCompatActivity
                     weekviewcontainer.setVisibility(View.VISIBLE);
                     monthviewpager.setVisibility(View.GONE);
                     mNestedView.setVisibility(View.GONE);
+                    dateselect.setVisibility(View.VISIBLE);
+                    monthNav.setVisibility(View.GONE);
                     mWeekView.setNumberOfVisibleDays(7);
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
@@ -602,6 +707,8 @@ public class MainActivity extends AppCompatActivity
                     mNestedView.setVisibility(View.GONE);
                     weekviewcontainer.setVisibility(View.GONE);
                     monthviewpager.setVisibility(View.VISIBLE);
+                    dateselect.setVisibility(View.GONE);
+                    monthNav.setVisibility(View.VISIBLE);
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
                     mAppBar.setElevation(0);
                     monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), true);
